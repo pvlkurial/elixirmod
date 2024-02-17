@@ -1,0 +1,7 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "elixir:block/alchemy_machine"
+  }
+}
+
