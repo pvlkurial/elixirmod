@@ -1,0 +1,44 @@
+#ELIXIR MOD
+
+- new brewing machine block
+
+- new generated item - remnant shard (found in sus sand , mineshafts and other overworld lootables) used for crafting the brewing block
+- brewing machine block upgrade -> void shard -> otherworld shard
+
+
+#ITEMS
+	SHARDS
+	- arcane
+	- void 
+	- remnant
+	- Prima Materia (flower sniffed by sniffers)
+	- Essence of Prima Materia
+	- Empty Vessel (Bottle for elixirs)
+	
+#BLOCKS
+	MACHINES
+	- Alchemy Machine
+	- Athanor (Furnace to power Alchemical Apparatus)
+	- Alchemical Apparatus
+	- Grand Arcanum Diffuser // only for Philosopher Stone Level Crafts
+	
+#WORKINGS
+	- Custom Crafts within Alchemy Machine - Its to combine Elixirs and Tools/Items == kinda like enchants
+	- Alchemical Apparatus is to dissolve items to create Elixirs;
+	
+#ELIXIRS
+	- Growth Elixir (Tier 1) -- Growth Enchantment for hoes (instant replant)
+	- Scubal Elixir (Tier 1) -- (TOOL) Improves Underwater Mining speed
+	- Choral Elixir (Tier 2) -- Puts harvested things straight into inventory/ chorus fruity :)
+	- Deep Sea Elixir (Tier 2) -- (RODS) Rod Goes deeper into the water, attracting more treasures
+	- Life Steal Elixir (Tier 2) -- (WEAPON) Steals life from mobs
+	- Aoeral Elixil (Tier 2) -- (WEAPON) Area of effect
+	ALL TIER 3 AND ABOVE REQUIRE PHILOSOPHER'S STONE
+	- Life Elixir (Tier 3) -- Doubles Base Durability
+	- Mortal Elixir (Tier 4) -- Soulbound
+	- 
+	
+#BASES
+
+	- base of every elixir is the "Alkahest"
+	- for Life-based Tier 3+ "Aqua Vitae"
