@@ -10,5 +10,7 @@
   "block.elixir.alchemy_machine": "Alchemy Machine",
   "block.elixir.alchemical_apparatus": "Alchemical Apparatus",
 
-  "itemGroup.elixir.elixir_group": "Elixir Group"
+  "block.elixir.prima_materia": "Prima Materia",
+
+  "itemgroup.elixir": "Elixir Group"
 }

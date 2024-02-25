@@ -1,0 +1,16 @@
+// 1.20.4	2024-02-25T16:54:45.2588596	Elixir/Model Definitions
+026a19d3cc557ee1128f8453200008868d18d4fe assets\elixir\models\item\empty_vessel.json
+2b5e6807895f38c50dc9239ec08a14e0ac5243bf assets\elixir\models\item\alchemy_machine.json
+ca3cc1f4225f5f7c063c8c540e10ab70c33000a5 assets\elixir\models\block\prima_materia.json
+640a49eea51eafc6db99988a9f7d0465954b615f assets\elixir\blockstates\alchemy_machine.json
+f52f72af17c6e301fd4c630d41c22a187da9c415 assets\elixir\models\item\essence_prima_materia.json
+3d8df61f4abbd039b7a7a91386cb535ca59c3dfc assets\elixir\models\item\remnant_shard.json
+5b634d01f0635cc2b786530c79f11082ae374288 assets\elixir\blockstates\prima_materia.json
+e26d65bde2556cd14f27cca3efd65c580d1f7ea2 assets\elixir\models\item\alchemical_apparatus.json
+654a3de0d996445e500ea75c04864b1c4971bd7f assets\elixir\blockstates\potted_prima_materia.json
+04acd5eb9533b2717e14e306e788ea49070e1330 assets\elixir\models\item\void_shard.json
+63b3e0abd1ca4c08e5139ca40dbb7b4b4fe5af71 assets\elixir\models\block\potted_prima_materia.json
+48985b1220e1b0c0d902f9d41e7db653cd1fb305 assets\elixir\blockstates\alchemical_apparatus.json
+66f8b1da155c87bc843554d463591e8cd06f0ec6 assets\elixir\models\block\alchemy_machine.json
+ed01fb5cf2df02459a995a198d73e658726526a3 assets\elixir\models\item\arcane_shard.json
+a626286f1c36809a8eeba2179d913e51a43025a8 assets\elixir\models\item\prima_materia.json

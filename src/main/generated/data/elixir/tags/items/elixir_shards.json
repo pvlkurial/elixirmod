@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "elixir:arcane_shard",
+    "elixir:void_shard",
+    "elixir:remnant_shard",
+    "minecraft:blue_orchid",
+    {
+      "id": "#minecraft:anvil",
+      "required": false
+    }
+  ]
+}

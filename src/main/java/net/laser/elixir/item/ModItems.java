@@ -20,10 +20,6 @@ public class ModItems {
 
     private static void addItemsToIngredientTabItemGroup(FabricItemGroupEntries entries){
         entries.add(ARCANE_SHARD);
-        entries.add(REMNANT_SHARD);
-        entries.add(VOID_SHARD);
-        entries.add(ESSENCE_PRIMA_MATERIA);
-        entries.add(EMPTY_VESSEL);
 
     }
     private static Item registerItem( String name, Item item){
