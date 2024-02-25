@@ -35,7 +35,7 @@ public class AlchemicalApparatusScreen extends HandledScreen<AlchemicalApparatus
 
     private void renderProgressArrow(DrawContext context, int x, int y) {
         if(handler.isCrafting()){
-            context.drawTexture(TEXTURE, x+42, y+11, 176, 0, 8, handler.getScaledProgress());
+            context.drawTexture(TEXTURE, x+100, y+40, 176, 0, 8, handler.getScaledProgress());
             // #30, 26:48       TEXTURE gets drawn at x,y ; u is offset; idk; width is pixel width; scaledprogress
 
         }

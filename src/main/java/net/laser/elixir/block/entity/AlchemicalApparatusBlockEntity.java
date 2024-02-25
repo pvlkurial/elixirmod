@@ -28,17 +28,17 @@ public class AlchemicalApparatusBlockEntity extends BlockEntity implements Exten
     private final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(6, ItemStack.EMPTY);
 
     private static final int VESSEL_SLOT = 0;
-    private static final int FIRST_SLOT = 1;
+    private static final int FIRST_SLOT = 5;
     private static final int SECOND_SLOT = 2;
     private static final int THIRD_SLOT = 3;
     private static final int FOURTH_SLOT = 4;
-    private static final int OUTPUT_SLOT = 5;
+    private static final int OUTPUT_SLOT = 1;
 
     protected final PropertyDelegate propertyDelegate;
 
 
     private int progress = 0;
-    private int maxProgress = 100;
+    private int maxProgress = 72;
 
 
 
@@ -65,7 +65,7 @@ public class AlchemicalApparatusBlockEntity extends BlockEntity implements Exten
 
             @Override
             public int size() {
-                return 2;
+                return 6;
             }
         };
     }
@@ -124,6 +124,10 @@ public class AlchemicalApparatusBlockEntity extends BlockEntity implements Exten
                     markDirty(world, pos, state);
                 }
 
+            }else{
+                this.resetProgress();
+                markDirty(world,pos,state);
+
             }
 
         }
@@ -150,8 +154,9 @@ public class AlchemicalApparatusBlockEntity extends BlockEntity implements Exten
     }
 
     private boolean hasRecipe() {
-        ItemStack result = new ItemStack(ModItems.ARCANE_SHARD);
         boolean hasInput = getStack(VESSEL_SLOT).getItem() == ModItems.EMPTY_VESSEL;
+        ItemStack result = new ItemStack(ModItems.ARCANE_SHARD);
+
 
         return hasInput && canInsertAmountIntoOutputSlot(result) && canInsertItemIntoOutputSlot(result.getItem());
     }
@@ -165,6 +170,6 @@ public class AlchemicalApparatusBlockEntity extends BlockEntity implements Exten
     }
 
     private boolean isOutputSlotEmptyOrReceivable() {
-        return this.getStack(OUTPUT_SLOT).isEmpty() || this.getStack(OUTPUT_SLOT).getCount() < this.getStack(OUTPUT_SLOT).getMaxCount();
+        return this.getStack(OUTPUT_SLOT).isEmpty() || this.getStack(OUTPUT_SLOT).getCount() <= this.getStack(OUTPUT_SLOT).getMaxCount();
     }
 }

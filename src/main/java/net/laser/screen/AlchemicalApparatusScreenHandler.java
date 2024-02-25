@@ -25,7 +25,7 @@ public class AlchemicalApparatusScreenHandler extends ScreenHandler {
 
     public AlchemicalApparatusScreenHandler(int syncId, PlayerInventory playerInventory, BlockEntity blockEntity, PropertyDelegate arrayPropertyDelegate) {
         super(ModScreenHandlers.ALCHEMICAL_APPARATUS_SCREEN_HANDLER, syncId);
-        checkSize(((Inventory) blockEntity), 2);
+        checkSize(((Inventory) blockEntity), 6); // here changed to 6 so idk if problem :D
         this.inventory = ((Inventory) blockEntity);
         inventory.onOpen(playerInventory.player);
         this.propertyDelegate = arrayPropertyDelegate;

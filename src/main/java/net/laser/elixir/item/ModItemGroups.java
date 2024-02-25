@@ -21,6 +21,7 @@ public class ModItemGroups {
                         entries.add(ModItems.ARCANE_SHARD);
                         entries.add(ModItems.VOID_SHARD);
                         entries.add(ModItems.REMNANT_SHARD);
+                        entries.add(ModItems.EMPTY_VESSEL);
                         entries.add(ModBlocks.PRIMA_MATERIA);
                         entries.add(ModBlocks.ALCHEMICAL_APPARATUS);
 
