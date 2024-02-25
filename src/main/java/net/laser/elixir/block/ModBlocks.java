@@ -8,30 +8,25 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.FlowerBlock;
 import net.minecraft.block.FlowerPotBlock;
-import net.minecraft.client.item.TooltipContext;
-import net.minecraft.entity.effect.StatusEffect;
+
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
+
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
-import net.minecraft.world.World;
-import org.jetbrains.annotations.Nullable;
 
-import java.util.List;
+import net.minecraft.util.Identifier;
+
 
 public class ModBlocks {
     public static final Block ALCHEMICAL_APPARATUS = registerBlock("alchemical_apparatus",
             new AlchemicalApparatusBlock(FabricBlockSettings.copyOf(Blocks.IRON_BLOCK).nonOpaque()));
 
     public static final Block PRIMA_MATERIA = registerBlock("prima_materia",
-            new FlowerBlock(StatusEffects.DARKNESS, 5, FabricBlockSettings.copyOf(Blocks.WITHER_ROSE).nonOpaque().noCollision()));
+            new FlowerBlock(StatusEffects.DARKNESS, 5, FabricBlockSettings.copyOf(Blocks.ALLIUM).nonOpaque().noCollision()));
     public static final Block POTTED_PRIMA_MATERIA = Registry.register(Registries.BLOCK, new Identifier(Elixir.MOD_ID, "potted_prima_materia"),
-            new FlowerPotBlock(PRIMA_MATERIA, FabricBlockSettings.copyOf(Blocks.POTTED_WITHER_ROSE).nonOpaque().noCollision()));
+            new FlowerPotBlock(PRIMA_MATERIA, FabricBlockSettings.copyOf(Blocks.POTTED_ALLIUM).nonOpaque().noCollision()));
 
     private static Block registerBlock(String name, Block block) {
         registerBlockItem(name, block);
