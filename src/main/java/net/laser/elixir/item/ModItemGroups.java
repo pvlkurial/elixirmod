@@ -11,17 +11,22 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
 public class ModItemGroups {
-    public static final ItemGroup ELIXIR_GROUP = Registry.register(Registries.ITEM_GROUP,
-            new Identifier(Elixir.MOD_ID, "elixir"),
-            FabricItemGroup.builder().displayName(Text.translatable("itemgroup.elixir")).icon(() ->
-                    new ItemStack(ModItems.ESSENCE_PRIMA_MATERIA)).entries((displayContext, entries) -> {
-
+    public static final ItemGroup ELIXIR_GROUP = FabricItemGroup.builder()
+                    .icon(() -> new ItemStack(ModItems.ESSENCE_PRIMA_MATERIA))
+                    .displayName(Text.translatable("itemGroup.elixir.elixir_group"))
+                    .entries((displayContext, entries) -> {
 
                         entries.add(ModItems.ESSENCE_PRIMA_MATERIA);
-                entries.add(ModItems.VOID_SHARD);
-                entries.add(ModItems.ARCANE_SHARD);
-                entries.add(ModItems.VOID_SHARD);
-                entries.add(ModBlocks.ALCHEMICAL_APPARATUS);
+                        entries.add(ModItems.VOID_SHARD);
+                        entries.add(ModItems.ARCANE_SHARD);
+                        entries.add(ModItems.VOID_SHARD);
+                        entries.add(ModBlocks.ALCHEMICAL_APPARATUS);
 
-            }).build());
+            }).build();
+
+    public static void registerItemGroups(){
+        Registry.register(Registries.ITEM_GROUP, new Identifier(Elixir.MOD_ID, "elixir_group"), ELIXIR_GROUP);
+
+    }
+
 }

@@ -30,7 +30,6 @@ public class Elixir implements ModInitializer {
 		// This code runs as soon as Minecraft is in a mod-load-ready state.
 		// However, some things (like resources) may still be uninitialized.
 		// Proceed with mild caution.
-
 		Registry.register(Registries.BLOCK, new Identifier("elixir", "alchemy_machine"), ALCHEMY_MACHINE);
 		Registry.register(Registries.ITEM, new Identifier("elixir", "alchemy_machine"), new BlockItem(ALCHEMY_MACHINE, new FabricItemSettings()));
 		ModBlockEntities.registerBlockEntities();

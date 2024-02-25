@@ -2,7 +2,8 @@
 	"credit": "Made with Blockbench",
 	"texture_size": [64, 64],
 	"textures": {
-		"1": "elixir:block/alchemical_apparatus_texture"
+		"1": "elixir:block/alchemical_apparatus_texture",
+		"particles": "elixir:block/alchemical_apparatus_texture"
 	},
 	"elements": [
 		{

@@ -3,6 +3,7 @@ package net.laser.elixir;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.laser.elixir.item.ModItemGroups;
 import net.laser.elixir.item.ModItems;
 import net.laser.screen.AlchemicalApparatusScreen;
 import net.laser.screen.ModScreenHandlers;

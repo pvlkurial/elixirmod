@@ -27,11 +27,11 @@ public class AlchemicalApparatusBlockEntity extends BlockEntity implements Exten
 
     private final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(6, ItemStack.EMPTY);
 
+    private static final int VESSEL_SLOT = 0;
     private static final int FIRST_SLOT = 1;
     private static final int SECOND_SLOT = 2;
     private static final int THIRD_SLOT = 3;
     private static final int FOURTH_SLOT = 4;
-    private static final int VESSEL_SLOT = 0;
     private static final int OUTPUT_SLOT = 5;
 
     protected final PropertyDelegate propertyDelegate;

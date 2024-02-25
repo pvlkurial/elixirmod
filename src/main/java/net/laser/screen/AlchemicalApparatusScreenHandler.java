@@ -21,7 +21,7 @@ public class AlchemicalApparatusScreenHandler extends ScreenHandler {
 
     public AlchemicalApparatusScreenHandler(int syncId, PlayerInventory inventory, PacketByteBuf buf){
         this(syncId, inventory, inventory.player.getWorld().getBlockEntity(buf.readBlockPos()),
-                new ArrayPropertyDelegate(2));
+                new ArrayPropertyDelegate(6));
     }
 
 
@@ -33,8 +33,14 @@ public class AlchemicalApparatusScreenHandler extends ScreenHandler {
         this.propertyDelegate = arrayPropertyDelegate;
         this.blockEntity = ((AlchemicalApparatusBlockEntity) blockEntity);
         // HERE SLOTS ARE REPRESENTED!
-        this.addSlot(new Slot(inventory, 0, 80, 11)); // VESSEL SLOT
-        this.addSlot(new Slot(inventory, 5, 80, 11)); // OUTPUT SLOT
+
+        // These are the slots that are functional
+        this.addSlot(new Slot(inventory, 0, 43, 35)); // VESSEL SLOT
+        this.addSlot(new Slot(inventory, 1, 43, 11)); // FIRST SLOT
+        this.addSlot(new Slot(inventory, 2, 17, 35)); // SECOND SLOT
+        this.addSlot(new Slot(inventory, 3, 43, 59)); // THIRD SLOT
+        this.addSlot(new Slot(inventory, 4, 69, 35)); // FOURTH SLOT
+        this.addSlot(new Slot(inventory, 5, 129, 35)); // OUTPUT SLOT
 
         addPlayerInventory(playerInventory);
         addPlayerHotbar(playerInventory);

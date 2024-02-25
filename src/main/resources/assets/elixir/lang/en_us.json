@@ -4,6 +4,11 @@
   "item.elixir.remnant_shard": "Remnant Shard",
 
   "item.elixir.essence_prima_materia": "Essence of Prima Materia",
+
+  "item.elixir.empty_vessel": "Empty Vessel",
+
   "block.elixir.alchemy_machine": "Alchemy Machine",
-  "block.elixir.alchemical_apparatus": "Alchemical Apparatus"
+  "block.elixir.alchemical_apparatus": "Alchemical Apparatus",
+
+  "itemGroup.elixir.elixir_group": "Elixir Group"
 }
