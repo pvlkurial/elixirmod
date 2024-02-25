@@ -1,18 +1,26 @@
 package net.laser.elixir.block.entity;
 
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
+import net.laser.elixir.block.custom.AlchemicalApparatusBlock;
+import net.laser.elixir.item.ModItems;
+import net.laser.screen.AlchemicalApparatusScreenHandler;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.Inventories;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 public class AlchemicalApparatusBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, ImplementedInventory {
@@ -23,15 +31,48 @@ public class AlchemicalApparatusBlockEntity extends BlockEntity implements Exten
     private static final int SECOND_SLOT = 2;
     private static final int THIRD_SLOT = 3;
     private static final int FOURTH_SLOT = 4;
-    private static final int WATER_SLOT = 0;
+    private static final int VESSEL_SLOT = 0;
     private static final int OUTPUT_SLOT = 5;
-    public AlchemicalApparatusBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
-        super(type, pos, state);
+
+    protected final PropertyDelegate propertyDelegate;
+
+
+    private int progress = 0;
+    private int maxProgress = 100;
+
+
+
+    public AlchemicalApparatusBlockEntity(BlockPos pos, BlockState state) {
+        super(ModBlockEntities.ALCHEMICAL_APPARATUS_BLOCK_ENTITY, pos, state);
+        this.propertyDelegate = new PropertyDelegate() {
+            @Override
+            public int get(int index) {
+                return switch(index){
+                    case 0 -> AlchemicalApparatusBlockEntity.this.progress;
+                    case 1 -> AlchemicalApparatusBlockEntity.this.maxProgress;
+                    default -> 0;
+                };
+            }
+
+            @Override
+            public void set(int index, int value) {
+                switch(index){
+                    case 0 -> AlchemicalApparatusBlockEntity.this.progress = value;
+                    case 1 -> AlchemicalApparatusBlockEntity.this.maxProgress = value;
+
+                }
+            }
+
+            @Override
+            public int size() {
+                return 2;
+            }
+        };
     }
 
     @Override
     public void writeScreenOpeningData(ServerPlayerEntity player, PacketByteBuf buf) {
-
+        buf.writeBlockPos(this.pos);
     }
 
     @Override
@@ -44,9 +85,86 @@ public class AlchemicalApparatusBlockEntity extends BlockEntity implements Exten
         return inventory;
     }
 
+    @Override
+    protected void writeNbt(NbtCompound nbt) {
+        super.writeNbt(nbt);
+        Inventories.writeNbt(nbt, inventory);
+        nbt.putInt("alchemical_apparatus_progress", progress);
+    }
+
+    @Override
+    public void readNbt(NbtCompound nbt) {
+        super.readNbt(nbt);
+        Inventories.readNbt(nbt, inventory);
+        progress = nbt.getInt("alchemical_apparatus_progress");
+    }
+
     @Nullable
     @Override
     public ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
-        return null;
+        return new AlchemicalApparatusScreenHandler(syncId, playerInventory, this, this.propertyDelegate);
+    }
+
+    public void tick(World world, BlockPos pos, BlockState state) {
+        if(world.isClient()){
+            return;
+        }
+
+        if(isOutputSlotEmptyOrReceivable()){
+            if(this.hasRecipe()){
+                this.increaseCraftProgress();
+                markDirty(world, pos, state);
+
+                if(craftingHasFinished()){
+                    this.craftItem();
+                    this.resetProgress();
+
+                }else{
+                    this.resetProgress();
+                    markDirty(world, pos, state);
+                }
+
+            }
+
+        }
+
+    }
+
+    private void resetProgress() {
+        this.progress = 0;
+    }
+
+    private void craftItem() {
+        this.removeStack(VESSEL_SLOT, 1);
+        ItemStack result = new ItemStack(ModItems.ARCANE_SHARD);
+
+        this.setStack(OUTPUT_SLOT, new ItemStack(result.getItem(), getStack(OUTPUT_SLOT).getCount() + result.getCount()));
+    }
+
+    private boolean craftingHasFinished() {
+        return progress >= maxProgress;
+    }
+
+    private void increaseCraftProgress() {
+        progress++;
+    }
+
+    private boolean hasRecipe() {
+        ItemStack result = new ItemStack(ModItems.ARCANE_SHARD);
+        boolean hasInput = getStack(VESSEL_SLOT).getItem() == ModItems.EMPTY_VESSEL;
+
+        return hasInput && canInsertAmountIntoOutputSlot(result) && canInsertItemIntoOutputSlot(result.getItem());
+    }
+
+    private boolean canInsertItemIntoOutputSlot(Item item) {
+        return this.getStack(OUTPUT_SLOT).isEmpty() || this.getStack(OUTPUT_SLOT).getItem() == item;
+    }
+
+    private boolean canInsertAmountIntoOutputSlot(ItemStack result) {
+        return this.getStack(OUTPUT_SLOT).getCount() + result.getCount() <= getStack(OUTPUT_SLOT).getMaxCount();
+    }
+
+    private boolean isOutputSlotEmptyOrReceivable() {
+        return this.getStack(OUTPUT_SLOT).isEmpty() || this.getStack(OUTPUT_SLOT).getCount() < this.getStack(OUTPUT_SLOT).getMaxCount();
     }
 }
