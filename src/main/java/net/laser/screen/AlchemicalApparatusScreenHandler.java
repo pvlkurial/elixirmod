@@ -34,11 +34,11 @@ public class AlchemicalApparatusScreenHandler extends ScreenHandler {
 
         // These are the slots that are functional
         this.addSlot(new Slot(inventory, 0, 43, 35)); // VESSEL SLOT
-        this.addSlot(new Slot(inventory, 1, 43, 11)); // FIRST SLOT
-        this.addSlot(new Slot(inventory, 2, 17, 35)); // SECOND SLOT
-        this.addSlot(new Slot(inventory, 3, 43, 59)); // THIRD SLOT
-        this.addSlot(new Slot(inventory, 4, 69, 35)); // FOURTH SLOT
-        this.addSlot(new Slot(inventory, 5, 129, 35)); // OUTPUT SLOT
+        this.addSlot(new Slot(inventory, 2, 43, 11)); // FIRST SLOT
+        this.addSlot(new Slot(inventory, 3, 17, 35)); // SECOND SLOT
+        this.addSlot(new Slot(inventory, 4, 43, 59)); // THIRD SLOT
+        this.addSlot(new Slot(inventory, 5, 69, 35)); // FOURTH SLOT
+        this.addSlot(new Slot(inventory, 1, 129, 35)); // OUTPUT SLOT
 
         addPlayerInventory(playerInventory);
         addPlayerHotbar(playerInventory);

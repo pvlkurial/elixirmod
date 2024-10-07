@@ -1,0 +1,11 @@
+{
+  "type": "elixir:alchemical_apparatus",
+  "ingredients": [
+    {
+    "item": "elixir:empty_vessel"
+    }
+  ],
+  "output": {
+    "item": "minecraft:diamond"
+  }
+}

@@ -1,8 +1,10 @@
 package net.laser.elixir.block.entity;
 
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
+import net.laser.elixir.Elixir;
 import net.laser.elixir.block.custom.AlchemicalApparatusBlock;
 import net.laser.elixir.item.ModItems;
+import net.laser.elixir.recipe.AlchemicalApparatusRecipe;
 import net.laser.screen.AlchemicalApparatusScreenHandler;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -10,10 +12,15 @@ import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
+import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.network.listener.ClientPlayPacketListener;
+import net.minecraft.network.packet.Packet;
+import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
+import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -22,6 +29,9 @@ import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
+
+import javax.swing.text.html.Option;
+import java.util.Optional;
 
 public class AlchemicalApparatusBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, ImplementedInventory {
 
@@ -70,6 +80,20 @@ public class AlchemicalApparatusBlockEntity extends BlockEntity implements Exten
         };
     }
 
+    public ItemStack getRenderStack(){
+        if(this.getStack(OUTPUT_SLOT).isEmpty()){
+            return this.getStack(VESSEL_SLOT);
+        }else{
+            return this.getStack(OUTPUT_SLOT);
+        }
+    }
+
+    @Override
+    public void markDirty() {
+        world.updateListeners(pos, getCachedState(), getCachedState(), 3);
+        super.markDirty();
+    }
+
     @Override
     public void writeScreenOpeningData(ServerPlayerEntity player, PacketByteBuf buf) {
         buf.writeBlockPos(this.pos);
@@ -89,14 +113,14 @@ public class AlchemicalApparatusBlockEntity extends BlockEntity implements Exten
     protected void writeNbt(NbtCompound nbt) {
         super.writeNbt(nbt);
         Inventories.writeNbt(nbt, inventory);
-        nbt.putInt("alchemical_apparatus_progress", progress);
+        nbt.putInt("alchemical_apparatus.progress", progress);
     }
 
     @Override
     public void readNbt(NbtCompound nbt) {
         super.readNbt(nbt);
         Inventories.readNbt(nbt, inventory);
-        progress = nbt.getInt("alchemical_apparatus_progress");
+        progress = nbt.getInt("alchemical_apparatus.progress");
     }
 
     @Nullable
@@ -120,7 +144,7 @@ public class AlchemicalApparatusBlockEntity extends BlockEntity implements Exten
                     this.resetProgress();
 
                 }else{
-                    this.resetProgress();
+                    //this.resetProgress();
                     markDirty(world, pos, state);
                 }
 
@@ -139,13 +163,19 @@ public class AlchemicalApparatusBlockEntity extends BlockEntity implements Exten
     }
 
     private void craftItem() {
+
+        Optional<RecipeEntry<AlchemicalApparatusRecipe>> recipe = getCurrentRecipe();
+
         this.removeStack(VESSEL_SLOT, 1);
+        Elixir.LOGGER.info("Craft");
         ItemStack result = new ItemStack(ModItems.ARCANE_SHARD);
 
-        this.setStack(OUTPUT_SLOT, new ItemStack(result.getItem(), getStack(OUTPUT_SLOT).getCount() + result.getCount()));
+        this.setStack(OUTPUT_SLOT, new ItemStack(recipe.get().value().getResult(null).getItem(),
+                getStack(OUTPUT_SLOT).getCount() + recipe.get().value().getResult(null).getCount()));
     }
 
     private boolean craftingHasFinished() {
+        Elixir.LOGGER.info("Finished Crafting");
         return progress >= maxProgress;
     }
 
@@ -154,11 +184,18 @@ public class AlchemicalApparatusBlockEntity extends BlockEntity implements Exten
     }
 
     private boolean hasRecipe() {
-        boolean hasInput = getStack(VESSEL_SLOT).getItem() == ModItems.EMPTY_VESSEL;
-        ItemStack result = new ItemStack(ModItems.ARCANE_SHARD);
+        Optional<RecipeEntry<AlchemicalApparatusRecipe>> recipe = getCurrentRecipe();
 
+        return recipe.isPresent() && canInsertAmountIntoOutputSlot(recipe.get().value().getResult(null)) &&
+                canInsertItemIntoOutputSlot(recipe.get().value().getResult(null).getItem());
+    }
 
-        return hasInput && canInsertAmountIntoOutputSlot(result) && canInsertItemIntoOutputSlot(result.getItem());
+    private Optional<RecipeEntry<AlchemicalApparatusRecipe>> getCurrentRecipe() {
+        SimpleInventory inv = new SimpleInventory(this.size());
+        for (int i = 0; i < this.size(); i++){
+            inv.setStack(i, this.getStack(i));
+        }
+        return getWorld().getRecipeManager().getFirstMatch(AlchemicalApparatusRecipe.Type.INSTANCE, inv, getWorld());
     }
 
     private boolean canInsertItemIntoOutputSlot(Item item) {
@@ -170,6 +207,17 @@ public class AlchemicalApparatusBlockEntity extends BlockEntity implements Exten
     }
 
     private boolean isOutputSlotEmptyOrReceivable() {
-        return this.getStack(OUTPUT_SLOT).isEmpty() || this.getStack(OUTPUT_SLOT).getCount() <= this.getStack(OUTPUT_SLOT).getMaxCount();
+        return this.getStack(OUTPUT_SLOT).isEmpty() || (this.getStack(OUTPUT_SLOT).getCount() <= this.getStack(OUTPUT_SLOT).getMaxCount());
+    }
+
+    @Nullable
+    @Override
+    public Packet<ClientPlayPacketListener> toUpdatePacket() {
+        return BlockEntityUpdateS2CPacket.create(this);
+    }
+
+    @Override
+    public NbtCompound toInitialChunkDataNbt() {
+        return createNbt();
     }
 }

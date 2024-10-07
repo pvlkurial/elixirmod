@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "wooden_sign",
+  "key": {
+    "X": {
+      "item": "minecraft:iron_block"
+    },
+    "A": {
+      "item": "minecraft:brewing_stand"
+    },
+    "B": {
+      "item": "minecraft:iron_ingot"
+    },
+    "C": {
+      "item": "elixir:arcane_shard"
+    }
+  },
+  "pattern": [
+    " C ",
+    "BAB",
+    " X "
+  ],
+  "result": {
+    "count": 3,
+    "item": "elixir:alchemical_apparatus"
+  }
+}

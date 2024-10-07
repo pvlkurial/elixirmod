@@ -6,6 +6,7 @@ import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.laser.elixir.block.entity.ModBlockEntities;
 import net.laser.elixir.item.ModItemGroups;
+import net.laser.elixir.recipe.ModRecipes;
 import net.laser.screen.ModScreenHandlers;
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
@@ -36,6 +37,7 @@ public class Elixir implements ModInitializer {
 		Registry.register(Registries.ITEM, new Identifier("elixir", "alchemy_machine"), new BlockItem(ALCHEMY_MACHINE, new FabricItemSettings()));
 		ModBlockEntities.registerBlockEntities();
 		ModScreenHandlers.registerScreenHandlers();
+		ModRecipes.registerRecipes();
 		LOGGER.info("Hello Fabric world!");
 	}
 }
