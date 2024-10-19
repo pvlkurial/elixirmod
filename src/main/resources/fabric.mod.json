@@ -23,7 +23,11 @@
 		],
 		"fabric-datagen": [
 			"net.laser.elixir.ElixirDataGenerator"
+		],
+		"rei_client": [
+			"net.laser.elixir.compat.ElixirREIClientPlugin"
 		]
+
 	},
 	"mixins": [
 		"elixir.mixins.json"
