@@ -13,6 +13,9 @@ import net.laser.screen.AlchemicalApparatusScreen;
 public class ElixirREIClientPlugin implements REIClientPlugin {
     @Override
     public void registerCategories(CategoryRegistry registry) {
+
+        registry.add(new AlchemicalApparatusCategory());
+
         registry.addWorkstations(AlchemicalApparatusCategory.ALCHEMICAL_APPARATUS,
                                 EntryStacks.of(ModBlocks.ALCHEMICAL_APPARATUS));
     }

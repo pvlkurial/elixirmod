@@ -47,9 +47,12 @@ dependencies {
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
 	// REI
+	modCompileOnly "me.shedaniel:RoughlyEnoughItems-api:14.0.688"
 	modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:14.0.688"
 	modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:14.0.688"
 	modApi ("me.shedaniel.cloth:basic-math:+")
+	modCompileOnly "me.shedaniel:RoughlyEnoughItems-default-plugin:14.0.688"
+
 
 	// Uncomment the following line to enable the deprecated Fabric API modules.
 	// These are included in the Fabric API production distribution and allow you to update your mod to the latest modules at a later more convenient time.

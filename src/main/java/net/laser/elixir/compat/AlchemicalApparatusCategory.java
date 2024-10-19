@@ -8,13 +8,9 @@ import me.shedaniel.rei.api.client.gui.widgets.Widgets;
 import me.shedaniel.rei.api.client.registry.display.DisplayCategory;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.display.basic.BasicDisplay;
-import me.shedaniel.rei.api.common.entry.EntryIngredient;
 import me.shedaniel.rei.api.common.util.EntryStacks;
 import net.laser.elixir.Elixir;
 import net.laser.elixir.block.ModBlocks;
-import net.laser.elixir.recipe.AlchemicalApparatusRecipe;
-import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
@@ -51,15 +47,20 @@ public class AlchemicalApparatusCategory implements DisplayCategory<BasicDisplay
 
         widgets.add(Widgets.createSlot(new Point(startPoint.x + 80, startPoint.y + 11))
                 .entries(display.getInputEntries().get(0)));
-
         widgets.add(Widgets.createSlot(new Point(startPoint.x + 80, startPoint.y + 59))
-                .markOutput().entries(display.getOutputEntries().get(0)));
+                .entries(display.getInputEntries().get(1)));
         widgets.add(Widgets.createSlot(new Point(startPoint.x + 50, startPoint.y + 59))
-                .markOutput().entries(display.getOutputEntries().get(0)));
+                .entries(display.getInputEntries().get(2)));
         widgets.add(Widgets.createSlot(new Point(startPoint.x + 10, startPoint.y + 59))
-                .markOutput().entries(display.getOutputEntries().get(0)));
+                .entries(display.getInputEntries().get(3)));
+        //output
         widgets.add(Widgets.createSlot(new Point(startPoint.x + 10, startPoint.y + 50))
-                .markOutput().entries(display.getOutputEntries().get(1)));
+                .markOutput().entries(display.getOutputEntries().get(5)));
         return widgets;
+    }
+
+    @Override
+    public int getDisplayHeight() {
+        return 90;
     }
 }
